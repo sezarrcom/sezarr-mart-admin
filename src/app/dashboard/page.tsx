@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import DashboardLayout from '@/components/layout/DashboardLayout'
 import DashboardStats from '@/components/dashboard/DashboardStats'
 import RecentOrders from '@/components/dashboard/RecentOrders'
 import SalesChart from '@/components/dashboard/SalesChart'
@@ -9,7 +8,6 @@ import { Package, Plus, ShoppingCart, Users } from 'lucide-react'
 
 export default function DashboardPage() {
   return (
-    <DashboardLayout>
       <div className="space-y-8">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
@@ -69,6 +67,5 @@ export default function DashboardPage() {
           <RecentOrders />
         </div>
       </div>
-    </DashboardLayout>
   )
 }
