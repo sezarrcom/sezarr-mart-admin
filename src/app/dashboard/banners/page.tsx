@@ -467,6 +467,38 @@ export default function BannersPage() {
     }
   }
 
+  // Handler functions for banner actions
+  const handleEditBanner = (banner: Banner) => {
+    console.log("Editing banner:", banner.title)
+    // TODO: Implement edit functionality
+    alert(`Edit banner: ${banner.title}`)
+  }
+
+  const handleToggleBannerStatus = (banner: Banner) => {
+    const newStatus = banner.status === 'active' ? 'paused' : 'active'
+    setBanners(prev => prev.map(b => 
+      b.id === banner.id ? { ...b, status: newStatus } : b
+    ))
+    console.log(`Banner ${banner.title} ${newStatus}`)
+  }
+
+  const handleDuplicateBanner = (banner: Banner) => {
+    const duplicatedBanner: Banner = {
+      ...banner,
+      id: Math.random().toString(36).substr(2, 9),
+      title: `${banner.title} (Copy)`,
+      status: 'draft'
+    }
+    setBanners(prev => [duplicatedBanner, ...prev])
+    console.log("Banner duplicated:", duplicatedBanner.title)
+  }
+
+  const handleExportAnalytics = () => {
+    console.log("Exporting banner analytics...")
+    // TODO: Implement actual export functionality
+    alert("Banner analytics export started! Check your downloads folder.")
+  }
+
   // Filter banners
   const filteredBanners = banners.filter(banner => {
     const matchesSearch = 
@@ -561,7 +593,7 @@ export default function BannersPage() {
           <p className="text-muted-foreground text-lg">Create and manage marketing banners across all platforms</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportAnalytics}>
             <Download className="mr-2 h-4 w-4" />
             Export Analytics
           </Button>
@@ -881,6 +913,7 @@ export default function BannersPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleEditBanner(banner)}
                             title="Edit Banner"
                           >
                             <Edit className="h-4 w-4" />
@@ -889,6 +922,7 @@ export default function BannersPage() {
                             <Button
                               variant="ghost"
                               size="sm"
+                              onClick={() => handleToggleBannerStatus(banner)}
                               title="Pause Banner"
                             >
                               <Pause className="h-4 w-4" />
@@ -897,6 +931,7 @@ export default function BannersPage() {
                             <Button
                               variant="ghost"
                               size="sm"
+                              onClick={() => handleToggleBannerStatus(banner)}
                               title="Activate Banner"
                             >
                               <Play className="h-4 w-4" />
@@ -905,6 +940,7 @@ export default function BannersPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleDuplicateBanner(banner)}
                             title="Duplicate Banner"
                           >
                             <Copy className="h-4 w-4" />

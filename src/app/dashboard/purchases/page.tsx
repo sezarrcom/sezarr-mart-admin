@@ -236,6 +236,17 @@ export default function PurchasesPage() {
     }
   }
 
+  // Handler functions for purchase actions
+  const handleEditPurchase = (purchase: Purchase) => {
+    console.log('Edit purchase:', purchase)
+    // Open edit dialog or navigate to edit page
+  }
+
+  const handleExportPurchases = () => {
+    console.log('Exporting purchases report...')
+    // Export purchases data to CSV/PDF
+  }
+
   // Filter purchases
   const filteredPurchases = purchases.filter(purchase => {
     const matchesSearch = purchase.purchaseNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -297,7 +308,7 @@ export default function PurchasesPage() {
           <p className="text-muted-foreground text-lg">Manage purchase orders and supplier relationships</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportPurchases}>
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
@@ -506,6 +517,7 @@ export default function PurchasesPage() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => handleEditPurchase(purchase)}
                           title="Edit Purchase"
                         >
                           <Edit className="h-4 w-4" />

@@ -318,6 +318,17 @@ export default function LocationsPage() {
     }
   }
 
+  // Handler functions for location actions
+  const handleEditLocation = (location: Location) => {
+    console.log('Edit location:', location)
+    // Open edit dialog or navigate to edit page
+  }
+
+  const handleExportLocations = () => {
+    console.log('Exporting locations report...')
+    // Export locations data to CSV/PDF
+  }
+
   // Filter locations
   const filteredLocations = locations.filter(location => {
     const matchesSearch = location.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -391,7 +402,7 @@ export default function LocationsPage() {
           <p className="text-muted-foreground text-lg">Manage warehouses, stores, and fulfillment centers</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportLocations}>
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
@@ -630,6 +641,7 @@ export default function LocationsPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleEditLocation(location)}
                             title="Edit Location"
                           >
                             <Edit className="h-4 w-4" />

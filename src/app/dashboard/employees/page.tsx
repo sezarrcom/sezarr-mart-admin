@@ -265,6 +265,22 @@ export default function EmployeesPage() {
     }
   }
 
+  // Handler functions for employee actions
+  const handleEditEmployee = (employee: Employee) => {
+    console.log('Edit employee:', employee)
+    // Open edit dialog or navigate to edit page
+  }
+
+  const handleManagePermissions = (employee: Employee) => {
+    console.log('Manage permissions for employee:', employee)
+    // Open permissions management dialog
+  }
+
+  const handleExportEmployees = () => {
+    console.log('Exporting employees report...')
+    // Export employees data to CSV/PDF
+  }
+
   // Filter employees
   const filteredEmployees = employees.filter(employee => {
     const matchesSearch = `${employee.firstName} ${employee.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -331,7 +347,7 @@ export default function EmployeesPage() {
           <p className="text-muted-foreground text-lg">Manage team members, roles, and performance</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportEmployees}>
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
@@ -545,6 +561,7 @@ export default function EmployeesPage() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => handleEditEmployee(employee)}
                           title="Edit Employee"
                         >
                           <Edit className="h-4 w-4" />
@@ -552,6 +569,7 @@ export default function EmployeesPage() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => handleManagePermissions(employee)}
                           title="Permissions"
                         >
                           <Key className="h-4 w-4" />

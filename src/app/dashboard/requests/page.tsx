@@ -335,6 +335,17 @@ export default function RequestsPage() {
     }
   }
 
+  // Handler functions for request actions
+  const handleEditRequest = (request: CustomerRequest) => {
+    console.log('Edit request:', request)
+    // Open edit dialog or navigate to edit page
+  }
+
+  const handleExportRequests = () => {
+    console.log('Exporting requests report...')
+    // Export requests data to CSV/PDF
+  }
+
   // Filter requests
   const filteredRequests = requests.filter(request => {
     const matchesSearch = 
@@ -426,7 +437,7 @@ export default function RequestsPage() {
           <p className="text-muted-foreground text-lg">Manage support tickets and customer inquiries</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportRequests}>
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
@@ -732,6 +743,7 @@ export default function RequestsPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleEditRequest(request)}
                             title="Edit"
                           >
                             <Edit className="h-4 w-4" />

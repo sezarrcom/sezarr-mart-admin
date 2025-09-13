@@ -454,6 +454,22 @@ export default function DealsPage() {
     }
   }
 
+  // Handler functions for deal actions
+  const handleEditDeal = (deal: Deal) => {
+    console.log('Edit deal:', deal)
+    // Open edit dialog or navigate to edit page
+  }
+
+  const handleViewAnalytics = (deal: Deal) => {
+    console.log('View analytics for deal:', deal)
+    // Navigate to analytics page or open analytics modal
+  }
+
+  const handleExportReport = () => {
+    console.log('Exporting deals report...')
+    // Export deals data to CSV/PDF
+  }
+
   // Filter deals
   const filteredDeals = deals.filter(deal => {
     const matchesSearch = 
@@ -535,7 +551,7 @@ export default function DealsPage() {
           <p className="text-muted-foreground text-lg">Create and manage promotional campaigns</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportReport}>
             <Download className="mr-2 h-4 w-4" />
             Export Report
           </Button>
@@ -834,6 +850,7 @@ export default function DealsPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleEditDeal(deal)}
                             title="Edit Deal"
                           >
                             <Edit className="h-4 w-4" />
@@ -842,6 +859,7 @@ export default function DealsPage() {
                             <Button
                               variant="ghost"
                               size="sm"
+                              onClick={() => handleViewAnalytics(deal)}
                               title="Analytics"
                             >
                               <BarChart3 className="h-4 w-4" />

@@ -331,6 +331,11 @@ export default function OrdersPage() {
     setShowEditOrder(true)
   }
 
+  const handleExportOrders = () => {
+    console.log('Exporting orders report...')
+    // Export orders data to CSV/PDF
+  }
+
   const getOrderStats = () => {
     const totalOrders = orders.length
     const totalRevenue = orders.reduce((sum, order) => sum + order.total, 0)
@@ -356,7 +361,7 @@ export default function OrdersPage() {
           <p className="text-muted-foreground text-lg">Manage orders, track shipments, and handle customer requests</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="outline" className="w-full sm:w-auto">
+          <Button variant="outline" className="w-full sm:w-auto" onClick={handleExportOrders}>
             <Download className="w-4 h-4 mr-2" />
             Export
           </Button>

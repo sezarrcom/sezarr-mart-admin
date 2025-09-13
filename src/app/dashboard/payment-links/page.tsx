@@ -181,6 +181,23 @@ export default function PaymentLinksPage() {
     }
   }
 
+  // Handler functions for payment link actions
+  const handleEditPaymentLink = (link: PaymentLink) => {
+    console.log('Edit payment link:', link)
+    // Open edit dialog or navigate to edit page
+  }
+
+  const handleCopyLink = (link: PaymentLink) => {
+    navigator.clipboard.writeText(link.url)
+    console.log('Copied payment link:', link.url)
+    // Show success toast
+  }
+
+  const handleExportPaymentLinks = () => {
+    console.log('Exporting payment links report...')
+    // Export payment links data to CSV/PDF
+  }
+
   // Filter links
   const filteredLinks = paymentLinks.filter(link => {
     const matchesSearch = link.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -498,7 +515,7 @@ export default function PaymentLinksPage() {
                   <SelectItem value="expired">Expired</SelectItem>
                 </SelectContent>
               </Select>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={handleExportPaymentLinks}>
                 <Download className="h-4 w-4 mr-2" />
                 Export
               </Button>
@@ -611,6 +628,7 @@ export default function PaymentLinksPage() {
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => handleEditPaymentLink(link)}
                           title="Edit Link"
                         >
                           <Edit className="h-4 w-4" />

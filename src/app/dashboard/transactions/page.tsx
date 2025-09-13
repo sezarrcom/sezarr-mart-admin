@@ -314,6 +314,12 @@ export default function TransactionsPage() {
     }
   }
 
+  // Handler function for export
+  const handleExportTransactions = () => {
+    console.log('Exporting transactions report...')
+    // Export transactions data to CSV/PDF
+  }
+
   // Filter transactions
   const filteredTransactions = transactions.filter(transaction => {
     const matchesSearch = 
@@ -408,7 +414,7 @@ export default function TransactionsPage() {
           <p className="text-muted-foreground text-lg">Monitor and manage payment transactions</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportTransactions}>
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>

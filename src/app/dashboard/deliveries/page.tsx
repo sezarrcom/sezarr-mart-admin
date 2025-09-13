@@ -345,6 +345,12 @@ export default function DeliveriesPage() {
     }
   }
 
+  // Handler function for export
+  const handleExportDeliveries = () => {
+    console.log('Exporting deliveries report...')
+    // Export deliveries data to CSV/PDF
+  }
+
   // Filter deliveries
   const filteredDeliveries = deliveries.filter(delivery => {
     const matchesSearch = 
@@ -451,7 +457,7 @@ export default function DeliveriesPage() {
           <p className="text-muted-foreground text-lg">Track and manage order deliveries</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportDeliveries}>
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>

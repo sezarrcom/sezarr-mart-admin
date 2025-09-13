@@ -500,6 +500,39 @@ export default function CouponsPage() {
     })
   }
 
+  // Handler functions for coupon actions
+  const handleEditCoupon = (coupon: Coupon) => {
+    console.log('Edit coupon:', coupon)
+    // Open edit dialog or navigate to edit page
+  }
+
+  const handleCopyCouponCode = (coupon: Coupon) => {
+    navigator.clipboard.writeText(coupon.code)
+    console.log('Copied coupon code:', coupon.code)
+    // Show success toast
+  }
+
+  const handleShareCoupon = (coupon: Coupon) => {
+    const shareData = {
+      title: coupon.title,
+      text: `Use code ${coupon.code} for ${coupon.discountValue}% off!`,
+      url: window.location.href
+    }
+    
+    if (navigator.share) {
+      navigator.share(shareData)
+    } else {
+      // Fallback to copy link
+      navigator.clipboard.writeText(`${coupon.title} - Use code ${coupon.code}`)
+      console.log('Shared coupon:', shareData)
+    }
+  }
+
+  const handleExportReport = () => {
+    console.log('Exporting coupons report...')
+    // Export coupons data to CSV/PDF
+  }
+
   const stats = getTotalStats()
   const avgROI = stats.totalCoupons > 0 ? (stats.avgROI / stats.totalCoupons).toFixed(1) : 0
   const avgRedemptionRate = coupons.length > 0 ? 
@@ -524,7 +557,7 @@ export default function CouponsPage() {
           <p className="text-muted-foreground text-lg">Create and manage discount codes and promotional offers</p>
         </div>
         <div className="flex gap-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportReport}>
             <Download className="mr-2 h-4 w-4" />
             Export Report
           </Button>
@@ -860,6 +893,7 @@ export default function CouponsPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleEditCoupon(coupon)}
                             title="Edit Coupon"
                           >
                             <Edit className="h-4 w-4" />
@@ -867,6 +901,7 @@ export default function CouponsPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleCopyCouponCode(coupon)}
                             title="Copy Code"
                           >
                             <Copy className="h-4 w-4" />
@@ -874,6 +909,7 @@ export default function CouponsPage() {
                           <Button
                             variant="ghost"
                             size="sm"
+                            onClick={() => handleShareCoupon(coupon)}
                             title="Share Coupon"
                           >
                             <Share className="h-4 w-4" />

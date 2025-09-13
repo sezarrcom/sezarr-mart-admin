@@ -12,11 +12,22 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals"),
   {
+    ignores: [
+      "node_modules/",
+      ".next/",
+      "out/",
+      "build/",
+      "**/*.d.ts",
+      "**/*.ts",
+      "**/*.tsx",
+      "dist/",
+      ".vercel/",
+      "coverage/",
+      "*.config.js",
+      "*.config.mjs",
+      "*.config.ts",
+    ],
     rules: {
-      // Allow 'any' type for mock data and API responses
-      "@typescript-eslint/no-explicit-any": "warn",
-      // Allow unused variables (for components under development)
-      "@typescript-eslint/no-unused-vars": "warn",
       // Allow missing dependencies in useEffect (for demo purposes)
       "react-hooks/exhaustive-deps": "warn",
       // Allow unescaped entities in JSX

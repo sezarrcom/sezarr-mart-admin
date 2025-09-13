@@ -427,6 +427,11 @@ export default function VendorsPage() {
     setShowAddVendor(true)
   }
 
+  const handleExportVendors = () => {
+    console.log('Exporting vendors report...')
+    // Export vendors data to CSV/PDF
+  }
+
   const handleBulkStatusUpdate = (status: Vendor['status']) => {
     const updatedVendors = vendors.map(vendor => 
       selectedVendors.includes(vendor.id) ? { ...vendor, status } : vendor
@@ -461,7 +466,7 @@ export default function VendorsPage() {
           <p className="text-muted-foreground text-lg">Manage vendor profiles, performance, and business relationships</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="outline" className="w-full sm:w-auto">
+          <Button variant="outline" className="w-full sm:w-auto" onClick={handleExportVendors}>
             <Download className="w-4 h-4 mr-2" />
             Export
           </Button>
