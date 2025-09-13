@@ -1,14 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Completely disable ESLint during all builds
   eslint: {
-    // Completely disable ESLint during production builds
     ignoreDuringBuilds: true,
   },
+  // Completely disable TypeScript checking during all builds
   typescript: {
-    // Completely disable TypeScript checking during production builds  
     ignoreBuildErrors: true,
-  }
+  },
+  // Disable telemetry 
+  telemetry: false,
+  // Output settings for deployment
+  output: 'standalone'
 };
 
 export default nextConfig;
