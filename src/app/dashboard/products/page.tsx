@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useSession } from "next-auth/react"
-import { Plus, Edit, Trash2, Search, Filter } from "lucide-react"
+import { Plus, Edit, Trash2, Search, Filter, Upload, Package, TrendingUp, AlertTriangle, Eye, Copy } from "lucide-react"
 
 interface Product {
   id: string
@@ -74,21 +74,78 @@ export default function ProductsPage() {
         {
           id: "1",
           name: "Wireless Bluetooth Headphones",
-          description: "High-quality wireless headphones with noise cancellation",
-          price: 99.99,
-          stock: 50,
+          description: "Premium wireless headphones with active noise cancellation and 30-hour battery life",
+          price: 2499,
+          stock: 45,
           category: { id: "1", name: "Electronics" },
           status: "active",
+          images: ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200"],
           createdAt: new Date().toISOString()
         },
         {
           id: "2",
-          name: "Cotton T-Shirt",
-          description: "Comfortable cotton t-shirt in various colors",
-          price: 19.99,
-          stock: 100,
+          name: "Cotton Premium T-Shirt",
+          description: "100% organic cotton t-shirt available in multiple colors and sizes",
+          price: 599,
+          stock: 120,
           category: { id: "2", name: "Clothing" },
           status: "active",
+          images: ["https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200"],
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: "3",
+          name: "Smart Watch Pro",
+          description: "Advanced fitness tracking smartwatch with heart rate monitor and GPS",
+          price: 12999,
+          stock: 8,
+          category: { id: "1", name: "Electronics" },
+          status: "active",
+          images: ["https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=200"],
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: "4",
+          name: "Leather Wallet",
+          description: "Genuine leather wallet with RFID blocking technology",
+          price: 1299,
+          stock: 75,
+          category: { id: "2", name: "Clothing" },
+          status: "active",
+          images: ["https://images.unsplash.com/photo-1627123424574-724758594e93?w=200"],
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: "5",
+          name: "Indoor Plant Pot Set",
+          description: "Set of 3 ceramic plant pots perfect for indoor gardening",
+          price: 899,
+          stock: 2,
+          category: { id: "3", name: "Home & Garden" },
+          status: "active",
+          images: ["https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=200"],
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: "6",
+          name: "JavaScript Programming Guide",
+          description: "Complete guide to modern JavaScript programming with practical examples",
+          price: 1999,
+          stock: 0,
+          category: { id: "4", name: "Books" },
+          status: "out_of_stock",
+          images: ["https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=200"],
+          createdAt: new Date().toISOString()
+        },
+        {
+          id: "7",
+          name: "Wireless Mouse",
+          description: "Ergonomic wireless mouse with precision tracking",
+          price: 799,
+          stock: 200,
+          category: { id: "1", name: "Electronics" },
+          status: "active",
+          images: ["https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=200"],
           createdAt: new Date().toISOString()
         }
       ]
@@ -232,6 +289,22 @@ export default function ProductsPage() {
                 />
               </div>
 
+              {/* Product Images */}
+              <div className="space-y-2">
+                <Label>Product Images</Label>
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                  <Upload className="mx-auto h-12 w-12 text-gray-400" />
+                  <div className="mt-2">
+                    <Button type="button" variant="outline" size="sm">
+                      Upload Images
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    PNG, JPG up to 10MB each (Max 5 images)
+                  </p>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="price">Price ($)</Label>
@@ -300,6 +373,62 @@ export default function ProductsPage() {
         </Dialog>
       </div>
 
+      {/* Product Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Products</CardTitle>
+            <Package className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{products.length}</div>
+            <p className="text-xs text-muted-foreground">
+              +20.1% from last month
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Active Products</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {products.filter(p => p.status === 'active').length}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              +180.1% from last month
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Low Stock</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {products.filter(p => p.stock <= 10).length}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              -19% from last month
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Categories</CardTitle>
+            <Badge className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{categories.length}</div>
+            <p className="text-xs text-muted-foreground">
+              +201 since last hour
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
       {/* Filters */}
       <Card className="shadow-sm">
         <CardContent className="pt-6">
@@ -350,7 +479,7 @@ export default function ProductsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Name</TableHead>
+                  <TableHead>Product</TableHead>
                   <TableHead>Category</TableHead>
                   <TableHead>Price</TableHead>
                   <TableHead>Stock</TableHead>
@@ -362,32 +491,88 @@ export default function ProductsPage() {
                 {filteredProducts.map((product) => (
                   <TableRow key={product.id}>
                     <TableCell>
-                      <div>
-                        <div className="font-medium">{product.name}</div>
-                        <div className="text-sm text-muted-foreground">{product.description}</div>
+                      <div className="flex items-center gap-3">
+                        <div className="h-12 w-12 rounded-md border border-gray-200 bg-gray-50 flex items-center justify-center">
+                          {product.images && product.images.length > 0 ? (
+                            <img 
+                              src={product.images[0]} 
+                              alt={product.name}
+                              className="h-10 w-10 rounded object-cover"
+                            />
+                          ) : (
+                            <Package className="h-6 w-6 text-gray-400" />
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-medium">{product.name}</div>
+                          <div className="text-sm text-muted-foreground max-w-xs truncate">
+                            {product.description}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            SKU: {product.id.toUpperCase()}
+                          </div>
+                        </div>
                       </div>
                     </TableCell>
-                    <TableCell>{product.category.name}</TableCell>
-                    <TableCell>${product.price.toFixed(2)}</TableCell>
-                    <TableCell>{product.stock}</TableCell>
                     <TableCell>
-                      <Badge variant={product.status === "active" ? "default" : "secondary"}>
-                        {product.status}
+                      <Badge variant="outline">{product.category.name}</Badge>
+                    </TableCell>
+                    <TableCell>
+                      <div className="font-medium">₹{product.price.toFixed(2)}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <span className={`font-medium ${product.stock <= 10 ? 'text-red-600' : product.stock <= 50 ? 'text-yellow-600' : 'text-green-600'}`}>
+                          {product.stock}
+                        </span>
+                        {product.stock <= 10 && (
+                          <Badge variant="destructive" className="text-xs">Low</Badge>
+                        )}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <Badge 
+                        variant={
+                          product.status === "active" ? "default" : 
+                          product.status === "inactive" ? "secondary" : 
+                          "destructive"
+                        }
+                      >
+                        {product.status === "out_of_stock" ? "Out of Stock" : product.status}
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex gap-2 justify-end">
+                      <div className="flex gap-1 justify-end">
                         <Button
-                          variant="outline"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {/* View product details */}}
+                          title="View Details"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
                           size="sm"
                           onClick={() => handleEdit(product)}
+                          title="Edit Product"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
                         <Button
-                          variant="destructive"
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => {/* Duplicate product */}}
+                          title="Duplicate Product"
+                        >
+                          <Copy className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
                           size="sm"
                           onClick={() => handleDelete(product.id)}
+                          title="Delete Product"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
