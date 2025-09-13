@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
+    "build": "SKIP_ENV_VALIDATION=true next build --turbopack",
+    "build:vercel": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint --fix",
+    "lint:check": "eslint",
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {

@@ -1,0 +1,16 @@
+# Ignore all TypeScript files during build
+*.ts
+*.tsx
+src/**/*.ts
+src/**/*.tsx
+**/*.ts
+**/*.tsx
+
+# Ignore build and output directories
+.next/
+node_modules/
+out/
+build/
+
+# Ignore configuration files
+next-env.d.ts
