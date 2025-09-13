@@ -1,10 +1,10 @@
 {
   "buildCommand": "npm run build",
-  "framework": "nextjs",
+  "framework": "nextjs", 
   "installCommand": "npm install",
   "env": {
-    "SKIP_ENV_VALIDATION": "1",
-    "DISABLE_ESLINT": "1", 
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "NEXTAUTH_SECRET": "sezarr-mart-admin-production-secret-key-2025",
+    "NEXTAUTH_URL": "https://sezarr-mart-admin.vercel.app"
   }
 }

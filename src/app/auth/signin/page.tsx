@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function SignInPage() {
-  const [email, setEmail] = useState("admin@sezarrmart.com")
+  const [email, setEmail] = useState("admin@sezarr.com")
   const [password, setPassword] = useState("admin123")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")

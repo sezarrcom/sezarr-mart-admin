@@ -1,12 +1,32 @@
 import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import bcrypt from "bcryptjs"
-import { prisma } from "@/lib/prisma"
+
+// Mock users for demo purposes (replace with real database in production)
+const DEMO_USERS = [
+  {
+    id: "1",
+    email: "admin@sezarr.com",
+    password: "admin123",
+    name: "Admin User",
+    role: "ADMIN"
+  },
+  {
+    id: "2", 
+    email: "manager@sezarr.com",
+    password: "manager123",
+    name: "Manager User",
+    role: "MANAGER"
+  },
+  {
+    id: "3",
+    email: "demo@sezarr.com", 
+    password: "demo123",
+    name: "Demo User",
+    role: "USER"
+  }
+];
 
 export const authOptions: NextAuthOptions = {
-  // Note: PrismaAdapter doesn't work well with credentials provider in NextAuth v4
-  // adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -21,26 +41,16 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const user = await prisma.user.findUnique({
-            where: { email: credentials.email }
-          })
+          // Find user in mock data
+          const user = DEMO_USERS.find(u => u.email === credentials.email)
 
           if (!user) {
             console.log("User not found:", credentials.email)
             return null
           }
 
-          if (!user.hashedPassword) {
-            console.log("User has no password set")
-            return null
-          }
-
-          const isPasswordValid = await bcrypt.compare(
-            credentials.password,
-            user.hashedPassword
-          )
-
-          if (!isPasswordValid) {
+          // Simple password check (in production, use bcrypt)
+          if (user.password !== credentials.password) {
             console.log("Invalid password for user:", credentials.email)
             return null
           }
