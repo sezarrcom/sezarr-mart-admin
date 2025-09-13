@@ -33,6 +33,7 @@ import {
   Gift,
   Image,
   Ticket,
+  Activity,
   Palette,
   Menu,
   X,
@@ -47,6 +48,7 @@ interface DashboardLayoutProps {
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Live Analytics', href: '/dashboard/live-analytics', icon: Activity },
   { name: 'Orders', href: '/dashboard/orders', icon: ShoppingCart },
   { name: 'Products', href: '/dashboard/products', icon: Package },
   { name: 'Advanced Products', href: '/dashboard/products-advanced', icon: Package },
