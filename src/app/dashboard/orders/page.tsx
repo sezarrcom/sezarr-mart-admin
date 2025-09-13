@@ -88,6 +88,7 @@ export default function OrdersPage() {
   const [activeTab, setActiveTab] = useState("overview")
   const [showOrderDetails, setShowOrderDetails] = useState(false)
   const [showEditOrder, setShowEditOrder] = useState(false)
+  const [showCreateOrder, setShowCreateOrder] = useState(false)
   const [editingOrder, setEditingOrder] = useState<Order | null>(null)
   const [customerDetails, setCustomerDetails] = useState<Customer | null>(null)
 
@@ -332,8 +333,35 @@ export default function OrdersPage() {
   }
 
   const handleExportOrders = () => {
-    console.log('Exporting orders report...')
-    // Export orders data to CSV/PDF
+    // Create CSV content
+    const headers = ['Order #', 'Customer', 'Date', 'Status', 'Payment Status', 'Total', 'Items']
+    const csvData = [
+      headers.join(','),
+      ...filteredOrders.map(order => [
+        order.orderNumber,
+        order.customerName,
+        new Date(order.createdAt).toLocaleDateString(),
+        order.status,
+        order.paymentStatus,
+        `$${order.total.toFixed(2)}`,
+        order.items.length
+      ].join(','))
+    ].join('\n')
+    
+    // Download CSV file
+    const blob = new Blob([csvData], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `orders-export-${new Date().toISOString().split('T')[0]}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
+  }
+
+  const handleCreateOrder = () => {
+    setShowCreateOrder(true)
   }
 
   const getOrderStats = () => {
@@ -365,7 +393,7 @@ export default function OrdersPage() {
             <Download className="w-4 h-4 mr-2" />
             Export
           </Button>
-          <Button className="w-full sm:w-auto">
+          <Button className="w-full sm:w-auto" onClick={handleCreateOrder}>
             <Package className="w-4 h-4 mr-2" />
             Create Order
           </Button>
@@ -894,6 +922,89 @@ export default function OrdersPage() {
               </TabsContent>
             </Tabs>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Create Order Dialog */}
+      <Dialog open={showCreateOrder} onOpenChange={setShowCreateOrder}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Create New Order</DialogTitle>
+            <DialogDescription>
+              Create a new order manually for customers
+            </DialogDescription>
+          </DialogHeader>
+          
+          <form className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="customerName">Customer Name</Label>
+                <Input id="customerName" placeholder="Enter customer name" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="customerEmail">Customer Email</Label>
+                <Input id="customerEmail" type="email" placeholder="customer@email.com" />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="customerPhone">Phone Number</Label>
+              <Input id="customerPhone" placeholder="+1 (555) 123-4567" />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="shippingAddress">Shipping Address</Label>
+              <Textarea id="shippingAddress" placeholder="Enter full shipping address" rows={3} />
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="paymentMethod">Payment Method</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select payment method" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="credit_card">Credit Card</SelectItem>
+                    <SelectItem value="debit_card">Debit Card</SelectItem>
+                    <SelectItem value="paypal">PayPal</SelectItem>
+                    <SelectItem value="cod">Cash on Delivery</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="orderStatus">Order Status</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="confirmed">Confirmed</SelectItem>
+                    <SelectItem value="processing">Processing</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <Label>Order Items</Label>
+              <div className="border rounded-md p-4 space-y-2">
+                <p className="text-sm text-gray-500">Search and add products to this order</p>
+                <Input placeholder="Search products..." />
+                <div className="text-xs text-gray-400">No items added yet</div>
+              </div>
+            </div>
+            
+            <div className="flex justify-end space-x-2">
+              <Button type="button" variant="outline" onClick={() => setShowCreateOrder(false)}>
+                Cancel
+              </Button>
+              <Button type="submit">
+                Create Order
+              </Button>
+            </div>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

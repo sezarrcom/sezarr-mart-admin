@@ -109,6 +109,7 @@ export default function CustomersPage() {
   const [itemsPerPage] = useState(10)
   const [showCustomerDetails, setShowCustomerDetails] = useState(false)
   const [showEditCustomer, setShowEditCustomer] = useState(false)
+  const [showAddCustomer, setShowAddCustomer] = useState(false)
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null)
   const [customerSegments, setCustomerSegments] = useState<CustomerSegment[]>([])
   const [viewMode, setViewMode] = useState<'table' | 'cards'>('table')
@@ -386,6 +387,76 @@ export default function CustomersPage() {
     setShowEditCustomer(true)
   }
 
+  const handleExportCustomers = () => {
+    // Create CSV content
+    const headers = ['Name', 'Email', 'Phone', 'Status', 'Total Orders', 'Total Spent', 'Joined']
+    const csvData = [
+      headers.join(','),
+      ...filteredCustomers.map(customer => [
+        `"${customer.firstName} ${customer.lastName}"`,
+        customer.email,
+        customer.phone || '',
+        customer.status,
+        customer.statistics.totalOrders,
+        `$${customer.statistics.totalSpent.toFixed(2)}`,
+        new Date(customer.registrationDate).toLocaleDateString()
+      ].join(','))
+    ].join('\n')
+    
+    // Download CSV file
+    const blob = new Blob([csvData], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `customers-export-${new Date().toISOString().split('T')[0]}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
+  }
+
+  const handleAddCustomer = () => {
+    setShowAddCustomer(true)
+  }
+
+  const handleAddToSegment = () => {
+    if (selectedCustomers.length === 0) return
+    alert(`Adding ${selectedCustomers.length} customers to segment`)
+  }
+
+  const handleSendCampaign = () => {
+    if (selectedCustomers.length === 0) return
+    alert(`Sending campaign to ${selectedCustomers.length} customers`)
+  }
+
+  const handleExportSelected = () => {
+    if (selectedCustomers.length === 0) return
+    const selectedData = customers.filter(c => selectedCustomers.includes(c.id))
+    
+    const headers = ['Name', 'Email', 'Phone', 'Status', 'Total Orders', 'Total Spent']
+    const csvData = [
+      headers.join(','),
+      ...selectedData.map(customer => [
+        `"${customer.firstName} ${customer.lastName}"`,
+        customer.email,
+        customer.phone || '',
+        customer.status,
+        customer.statistics.totalOrders,
+        `$${customer.statistics.totalSpent.toFixed(2)}`
+      ].join(','))
+    ].join('\n')
+    
+    const blob = new Blob([csvData], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `selected-customers-${new Date().toISOString().split('T')[0]}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
+  }
+
   const getCustomerStats = () => {
     const totalCustomers = customers.length
     const activeCustomers = customers.filter(c => c.status === 'active').length
@@ -412,14 +483,14 @@ export default function CustomersPage() {
           <p className="text-muted-foreground text-lg">Manage customer profiles, analytics, and engagement</p>
         </div>
         <div className="flex flex-col sm:flex-row gap-3">
-          <Button variant="outline" className="w-full sm:w-auto">
+          <Button variant="outline" className="w-full sm:w-auto" onClick={handleExportCustomers}>
             <Download className="w-4 h-4 mr-2" />
             Export
           </Button>
           <Button variant="outline" onClick={() => setViewMode(viewMode === 'table' ? 'cards' : 'table')} className="w-full sm:w-auto">
             {viewMode === 'table' ? 'Card View' : 'Table View'}
           </Button>
-          <Button className="w-full sm:w-auto">
+          <Button className="w-full sm:w-auto" onClick={handleAddCustomer}>
             <UserPlus className="w-4 h-4 mr-2" />
             Add Customer
           </Button>
@@ -571,13 +642,13 @@ export default function CustomersPage() {
                 {selectedCustomers.length} customers selected
               </span>
               <div className="flex space-x-2">
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" onClick={handleAddToSegment}>
                   Add to Segment
                 </Button>
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" onClick={handleSendCampaign}>
                   Send Campaign
                 </Button>
-                <Button size="sm" variant="outline">
+                <Button size="sm" variant="outline" onClick={handleExportSelected}>
                   Export Selected
                 </Button>
                 <Button size="sm" variant="outline" onClick={() => setSelectedCustomers([])}>

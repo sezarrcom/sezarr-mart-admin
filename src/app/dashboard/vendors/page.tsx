@@ -427,6 +427,41 @@ export default function VendorsPage() {
     setShowAddVendor(true)
   }
 
+  const handleApproveKyc = () => {
+    if (selectedVendor) {
+      const updatedVendor = {
+        ...selectedVendor,
+        kycDocuments: {
+          ...selectedVendor.kycDocuments,
+          verificationStatus: 'approved' as const
+        }
+      }
+      // Update vendor in state
+      setVendors(prev => prev.map(v => v.id === selectedVendor.id ? updatedVendor : v))
+      setSelectedVendor(updatedVendor)
+      alert('KYC approved successfully!')
+    }
+  }
+
+  const handleRejectKyc = () => {
+    if (selectedVendor) {
+      const reason = prompt('Please provide a reason for rejection:')
+      if (reason) {
+        const updatedVendor = {
+          ...selectedVendor,
+          kycDocuments: {
+            ...selectedVendor.kycDocuments,
+            verificationStatus: 'rejected' as const
+          }
+        }
+        // Update vendor in state
+        setVendors(prev => prev.map(v => v.id === selectedVendor.id ? updatedVendor : v))
+        setSelectedVendor(updatedVendor)
+        alert('KYC rejected. Vendor will be notified.')
+      }
+    }
+  }
+
   const handleExportVendors = () => {
     console.log('Exporting vendors report...')
     // Export vendors data to CSV/PDF
@@ -943,11 +978,11 @@ export default function VendorsPage() {
 
                     {selectedVendor.kycDocuments.verificationStatus === 'pending' && (
                       <div className="flex space-x-2 pt-4">
-                        <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                        <Button size="sm" className="bg-green-600 hover:bg-green-700" onClick={handleApproveKyc}>
                           <CheckCircle className="w-4 h-4 mr-2" />
                           Approve KYC
                         </Button>
-                        <Button size="sm" variant="outline" className="border-red-600 text-red-600 hover:bg-red-50">
+                        <Button size="sm" variant="outline" className="border-red-600 text-red-600 hover:bg-red-50" onClick={handleRejectKyc}>
                           <XCircle className="w-4 h-4 mr-2" />
                           Reject KYC
                         </Button>

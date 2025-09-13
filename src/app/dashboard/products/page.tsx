@@ -236,6 +236,24 @@ export default function ProductsPage() {
     }
   }
 
+  // Handle view product details
+  const handleViewProduct = (product: Product) => {
+    alert(`View details for: ${product.name}\nPrice: $${product.price}\nStock: ${product.stock}\nCategory: ${product.category.name}`)
+  }
+
+  // Handle duplicate product
+  const handleDuplicateProduct = (product: Product) => {
+    setFormData({
+      name: `${product.name} (Copy)`,
+      description: product.description,
+      price: product.price,
+      stock: 0,
+      categoryId: product.category.id,
+      status: "active"
+    })
+    setIsAddDialogOpen(true)
+  }
+
   if (!session) {
     return (
       <Card>
@@ -546,7 +564,7 @@ export default function ProductsPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => {/* View product details */}}
+                          onClick={() => handleViewProduct(product)}
                           title="View Details"
                         >
                           <Eye className="h-4 w-4" />
@@ -562,7 +580,7 @@ export default function ProductsPage() {
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => {/* Duplicate product */}}
+                          onClick={() => handleDuplicateProduct(product)}
                           title="Duplicate Product"
                         >
                           <Copy className="h-4 w-4" />

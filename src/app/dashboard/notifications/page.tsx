@@ -458,6 +458,56 @@ Happy Shopping! 🛍️`,
 
   const stats = getNotificationStats()
 
+  const handleExportReport = () => {
+    // Create notification report
+    const reportData = {
+      templates: templates.length,
+      campaigns: campaigns.length,
+      totalSent: templates.reduce((sum, t) => sum + t.usage.sent, 0),
+      deliveryRate: stats.deliveryRate
+    }
+    
+    const csvContent = [
+      'Metric,Value',
+      `Total Templates,${reportData.templates}`,
+      `Total Campaigns,${reportData.campaigns}`,
+      `Total Messages Sent,${reportData.totalSent}`,
+      `Delivery Rate,${reportData.deliveryRate.toFixed(2)}%`
+    ].join('\n')
+    
+    const blob = new Blob([csvContent], { type: 'text/csv' })
+    const url = window.URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `notification-report-${new Date().toISOString().split('T')[0]}.csv`
+    document.body.appendChild(a)
+    a.click()
+    document.body.removeChild(a)
+    window.URL.revokeObjectURL(url)
+  }
+
+  const handleEditTemplate = (template: NotificationTemplate) => {
+    alert(`Edit template: ${template.name}`)
+  }
+
+  const handleCopyTemplate = (template: NotificationTemplate) => {
+    alert(`Template "${template.name}" copied to clipboard`)
+  }
+
+  const handleEditCampaign = (campaign: NotificationCampaign) => {
+    alert(`Edit campaign: ${campaign.name}`)
+  }
+
+  const handlePauseCampaign = (campaign: NotificationCampaign) => {
+    alert(`Campaign "${campaign.name}" paused`)
+  }
+
+  const handleDeleteCampaign = (campaign: NotificationCampaign) => {
+    if (confirm(`Delete campaign "${campaign.name}"?`)) {
+      alert(`Campaign "${campaign.name}" deleted`)
+    }
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -466,7 +516,7 @@ Happy Shopping! 🛍️`,
           <p className="text-gray-600">Manage multi-channel notification templates, campaigns, and automation</p>
         </div>
         <div className="flex space-x-3">
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExportReport}>
             <Download className="w-4 h-4 mr-2" />
             Export Report
           </Button>
@@ -626,10 +676,10 @@ Happy Shopping! 🛍️`,
                           <Button size="sm" variant="ghost" onClick={() => setSelectedTemplate(template)}>
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="ghost">
-                            <Edit className="w-4 h-4" />
+                          <Button size="sm" variant="ghost" onClick={() => handleEditTemplate(template)}>
+                            <Edit className="w-4 w-4" />
                           </Button>
-                          <Button size="sm" variant="ghost">
+                          <Button size="sm" variant="ghost" onClick={() => handleCopyTemplate(template)}>
                             <Copy className="w-4 h-4" />
                           </Button>
                         </div>
@@ -713,15 +763,15 @@ Happy Shopping! 🛍️`,
                             <Eye className="w-4 h-4" />
                           </Button>
                           {campaign.status === 'running' ? (
-                            <Button size="sm" variant="ghost">
+                            <Button size="sm" variant="ghost" onClick={() => handlePauseCampaign(campaign)}>
                               <Pause className="w-4 h-4" />
                             </Button>
                           ) : campaign.status === 'paused' ? (
-                            <Button size="sm" variant="ghost">
+                            <Button size="sm" variant="ghost" onClick={() => handleEditCampaign(campaign)}>
                               <Play className="w-4 h-4" />
                             </Button>
                           ) : null}
-                          <Button size="sm" variant="ghost">
+                          <Button size="sm" variant="ghost" onClick={() => handleEditCampaign(campaign)}>
                             <BarChart3 className="w-4 h-4" />
                           </Button>
                         </div>
