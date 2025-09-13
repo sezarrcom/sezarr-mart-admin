@@ -1,11 +1,9 @@
 # Ignore all TypeScript files during build
-*
-**/*
-src/
-.next/
 node_modules/
-build/
+.next/
 out/
+build/
+*.d.ts
 **/*.ts
 **/*.tsx
 

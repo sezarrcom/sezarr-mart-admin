@@ -1,22 +1,17 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // NUCLEAR OPTION: Completely disable ALL linting and type checking
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   eslint: {
-    ignoreDuringBuilds: true,
-    dirs: []  // Don't lint any directories
+    ignoreDuringBuilds: false,  // Enable linting during builds to catch real errors
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,   // Enable TypeScript checking to catch real errors  
   },
-  // Skip all validation during builds
-  swcMinify: false,
-  // Disable telemetry
-  telemetry: false,
-  // Experimental flags to bypass checks
   experimental: {
-    // Disable all experimental linting
-    eslint: false,
+    turbo: {
+      // Configure Turbopack properly
+    }
   }
 };
 
-module.exports = nextConfig;
+export default nextConfig;
