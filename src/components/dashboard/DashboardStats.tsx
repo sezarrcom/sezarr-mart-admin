@@ -1,115 +1,135 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { 
   DollarSign, 
   ShoppingCart, 
   Users, 
-  TrendingUp,
-  Package,
-  Truck,
-  CreditCard,
-  AlertCircle
+  MessageSquare,
+  Info
 } from 'lucide-react'
 
-const stats = [
+const mainStats = [
   {
-    title: 'Total Revenue',
-    value: '₹2,45,680',
-    change: '+12.5%',
-    changeType: 'positive' as const,
-    icon: DollarSign,
-    description: 'From last month'
-  },
-  {
-    title: 'Total Orders',
-    value: '1,247',
-    change: '+8.2%',
-    changeType: 'positive' as const,
-    icon: ShoppingCart,
-    description: 'Active orders'
-  },
-  {
-    title: 'Total Customers',
-    value: '3,842',
-    change: '+15.3%',
-    changeType: 'positive' as const,
+    title: 'Customers',
+    value: '1',
     icon: Users,
-    description: 'Registered users'
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50',
+    info: 'Total registered customers'
   },
   {
-    title: 'Products',
-    value: '1,284',
-    change: '+2.1%',
-    changeType: 'positive' as const,
-    icon: Package,
-    description: 'In inventory'
+    title: 'Orders',
+    value: '0',
+    icon: ShoppingCart,
+    color: 'text-green-600',
+    bgColor: 'bg-green-50',
+    info: 'Total orders placed'
   },
   {
-    title: 'Pending Deliveries',
-    value: '89',
-    change: '-5.4%',
-    changeType: 'negative' as const,
-    icon: Truck,
-    description: 'Awaiting dispatch'
+    title: 'SMS Credits',
+    value: '996',
+    icon: MessageSquare,
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-50',
+    info: 'Remaining SMS Credits',
+    subtitle: 'Remaining SMS Credits'
   },
   {
-    title: 'Payment Links',
-    value: '156',
-    change: '+18.7%',
-    changeType: 'positive' as const,
-    icon: CreditCard,
-    description: 'Active links'
+    title: 'Sales - Day',
+    value: '₹0.00',
+    subtitle: 'Sep 14, 2025',
+    icon: DollarSign,
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-50',
+    info: 'Today\'s total sales'
+  }
+]
+
+const salesStats = [
+  {
+    title: 'Sales - Month',
+    value: '₹0.00',
+    subtitle: 'Sep, 2025',
+    icon: DollarSign,
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-50'
   },
   {
-    title: 'Low Stock Items',
-    value: '23',
-    change: '+4',
-    changeType: 'warning' as const,
-    icon: AlertCircle,
-    description: 'Need restocking'
-  },
-  {
-    title: 'Growth Rate',
-    value: '24.8%',
-    change: '+3.2%',
-    changeType: 'positive' as const,
-    icon: TrendingUp,
-    description: 'Monthly growth'
+    title: 'Sales - Total',
+    value: '₹0.00',
+    icon: DollarSign,
+    color: 'text-green-600',
+    bgColor: 'bg-green-50'
   }
 ]
 
 export default function DashboardStats() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {stats.map((stat, index) => {
-        const Icon = stat.icon
-        
-        return (
-          <Card key={index} className="hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                {stat.title}
-              </CardTitle>
-              <Icon className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
-              <div className="flex items-center space-x-2 text-xs text-muted-foreground mt-1">
-                <Badge 
-                  variant={
-                    stat.changeType === 'positive' ? 'default' : 
-                    stat.changeType === 'negative' ? 'destructive' : 'secondary'
-                  }
-                  className="text-xs"
-                >
-                  {stat.change}
-                </Badge>
-                <span>{stat.description}</span>
-              </div>
-            </CardContent>
-          </Card>
-        )
-      })}
+    <div className="space-y-6">
+      {/* Main Stats - 4 Column Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {mainStats.map((stat, index) => {
+          const Icon = stat.icon
+          
+          return (
+            <Card key={index} className="hover:shadow-lg transition-all duration-200 border border-gray-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                <div className="space-y-1">
+                  <CardTitle className="text-sm font-medium text-gray-600">
+                    {stat.title}
+                  </CardTitle>
+                  {stat.subtitle && (
+                    <p className="text-xs text-gray-500">{stat.subtitle}</p>
+                  )}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
+                    <Info className="h-3 w-3 text-gray-400" />
+                  </Button>
+                  <div className={`p-2 rounded-lg ${stat.bgColor}`}>
+                    <Icon className={`h-5 w-5 ${stat.color}`} />
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                {stat.info && (
+                  <p className="text-xs text-gray-500 mt-1">{stat.info}</p>
+                )}
+              </CardContent>
+            </Card>
+          )
+        })}
+      </div>
+
+      {/* Additional Sales Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {salesStats.map((stat, index) => {
+          const Icon = stat.icon
+          
+          return (
+            <Card key={index} className="hover:shadow-lg transition-all duration-200 border border-gray-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+                <div className="space-y-1">
+                  <CardTitle className="text-sm font-medium text-gray-600">
+                    {stat.title}
+                  </CardTitle>
+                  {stat.subtitle && (
+                    <p className="text-xs text-gray-500">{stat.subtitle}</p>
+                  )}
+                </div>
+                <div className={`p-2 rounded-lg ${stat.bgColor}`}>
+                  <Icon className={`h-5 w-5 ${stat.color}`} />
+                </div>
+              </CardHeader>
+              <CardContent className="pt-0">
+                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+              </CardContent>
+            </Card>
+          )
+        })}
+      </div>
     </div>
   )
 }

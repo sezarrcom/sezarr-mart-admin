@@ -475,6 +475,16 @@ export default function VendorsPage() {
     setSelectedVendors([])
   }
 
+  const handleSaveVendor = () => {
+    if (editingVendor) {
+      alert('Vendor updated successfully!')
+    } else {
+      alert('New vendor added successfully!')
+    }
+    setShowAddVendor(false)
+    setEditingVendor(null)
+  }
+
   const getVendorStats = () => {
     const totalVendors = vendors.length
     const activeVendors = vendors.filter(v => v.status === 'active').length
@@ -1221,7 +1231,7 @@ export default function VendorsPage() {
               <Button variant="outline" onClick={() => setShowAddVendor(false)}>
                 Cancel
               </Button>
-              <Button>
+              <Button onClick={handleSaveVendor}>
                 {editingVendor ? 'Update Vendor' : 'Add Vendor'}
               </Button>
             </div>

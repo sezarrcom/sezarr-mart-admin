@@ -48,33 +48,33 @@ interface DashboardLayoutProps {
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Live Analytics', href: '/dashboard/live-analytics', icon: Activity },
-  { name: 'Orders', href: '/dashboard/orders', icon: ShoppingCart },
-  { name: 'Products', href: '/dashboard/products', icon: Package },
-  { name: 'Advanced Products', href: '/dashboard/products-advanced', icon: Package },
-  { name: 'Categories', href: '/dashboard/categories', icon: Package },
-  { name: 'Inventory', href: '/dashboard/inventory', icon: Package },
-  { name: 'Suppliers', href: '/dashboard/suppliers', icon: Store },
-  { name: 'Purchase Orders', href: '/dashboard/purchase-orders', icon: FileText },
+  { name: 'Orders', href: '/dashboard/orders', icon: ShoppingCart, badge: '0 new' },
   { name: 'Customers', href: '/dashboard/customers', icon: Users },
-  { name: 'Payments', href: '/dashboard/payments', icon: CreditCard },
   { name: 'Payment Links', href: '/dashboard/payment-links', icon: CreditCard },
   { name: 'Notifications', href: '/dashboard/notifications', icon: Bell },
+  { name: 'Categories', href: '/dashboard/categories', icon: Package },
+  { name: 'Products', href: '/dashboard/products', icon: Package },
+  { name: 'Suppliers', href: '/dashboard/suppliers', icon: Store },
   { name: 'Purchases', href: '/dashboard/purchases', icon: Receipt },
   { name: 'Employees', href: '/dashboard/employees', icon: UserCheck },
   { name: 'Locations', href: '/dashboard/locations', icon: MapPin },
   { name: 'Transactions', href: '/dashboard/transactions', icon: Receipt },
   { name: 'Deliveries', href: '/dashboard/deliveries', icon: Truck },
   { name: 'Reports', href: '/dashboard/reports', icon: FileText },
-  { name: 'Vendors', href: '/dashboard/vendors', icon: Store },
-  { name: 'Requests', href: '/dashboard/requests', icon: FileText },
-  { name: 'Promotions', href: '/dashboard/promotions', icon: Gift },
+  { name: 'Vendors', href: '/dashboard/vendors', icon: Store, badge: '0 new' },
+  { name: 'Requests', href: '/dashboard/requests', icon: FileText, badge: '0 new' },
   { name: 'Deals', href: '/dashboard/deals', icon: Gift },
   { name: 'Banners', href: '/dashboard/banners', icon: Image },
   { name: 'Coupons', href: '/dashboard/coupons', icon: Ticket },
-  { name: 'Mobile Settings', href: '/dashboard/mobile-settings', icon: Smartphone },
   { name: 'Design Studio', href: '/dashboard/design-studio', icon: Palette },
+  { name: 'Billing', href: '/dashboard/billing', icon: Receipt },
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
+  { name: 'Integrations', href: '/dashboard/integrations', icon: Activity },
+  { name: 'App Releases', href: '/dashboard/app-releases', icon: Smartphone },
+  { name: 'Policies', href: '/dashboard/policies', icon: FileText },
+  { name: 'About Us Page', href: '/dashboard/about-us', icon: FileText },
+  { name: 'Contact Us Page', href: '/dashboard/contact-us', icon: FileText },
+  { name: 'Support Cases', href: '/dashboard/support-cases', icon: Bell, badge: '0' }
 ]
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
@@ -149,15 +149,22 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "flex items-center px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200",
+                    "flex items-center justify-between px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200",
                     isActive 
                       ? "bg-blue-50 text-blue-700 border-r-4 border-blue-700 shadow-sm" 
                       : "text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm"
                   )}
                   onClick={() => setSidebarOpen(false)}
                 >
-                  <Icon className="mr-3 h-5 w-5" />
-                  {item.name}
+                  <div className="flex items-center">
+                    <Icon className="mr-3 h-5 w-5" />
+                    {item.name}
+                  </div>
+                  {(item as any).badge && (
+                    <Badge variant="secondary" className="bg-blue-100 text-blue-700 text-xs">
+                      {(item as any).badge}
+                    </Badge>
+                  )}
                 </Link>
               )
             })}
@@ -189,7 +196,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
             <div className="flex items-center space-x-4">
               {/* Notifications */}
-              <Button variant="ghost" size="sm" className="relative">
+              <Button variant="ghost" size="sm" className="relative" onClick={() => alert('3 new notifications:\n• New order received\n• Low stock alert\n• System update available')}>
                 <Bell className="h-4 w-4" />
                 <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs bg-red-500">
                   3
@@ -216,11 +223,11 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => window.location.href = '/dashboard/profile'}>
                     <User className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => window.location.href = '/dashboard/settings'}>
                     <Settings className="mr-2 h-4 w-4" />
                     <span>Settings</span>
                   </DropdownMenuItem>

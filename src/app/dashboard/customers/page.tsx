@@ -911,19 +911,38 @@ export default function CustomersPage() {
                       <CardTitle className="text-lg">Quick Actions</CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                      <Button className="w-full" size="sm">
+                      <Button 
+                        className="w-full" 
+                        size="sm"
+                        onClick={() => alert(`Calling ${selectedCustomer.firstName} ${selectedCustomer.lastName}...`)}
+                      >
                         <Phone className="w-4 h-4 mr-2" />
                         Call Customer
                       </Button>
-                      <Button variant="outline" className="w-full" size="sm">
+                      <Button 
+                        variant="outline" 
+                        className="w-full" 
+                        size="sm"
+                        onClick={() => alert(`Sending email to ${selectedCustomer.email}...`)}
+                      >
                         <Mail className="w-4 h-4 mr-2" />
                         Send Email
                       </Button>
-                      <Button variant="outline" className="w-full" size="sm">
+                      <Button 
+                        variant="outline" 
+                        className="w-full" 
+                        size="sm"
+                        onClick={() => alert(`Starting chat with ${selectedCustomer.firstName} ${selectedCustomer.lastName}...`)}
+                      >
                         <MessageSquare className="w-4 h-4 mr-2" />
                         Start Chat
                       </Button>
-                      <Button variant="outline" className="w-full" size="sm">
+                      <Button 
+                        variant="outline" 
+                        className="w-full" 
+                        size="sm"
+                        onClick={() => alert(`Sending personalized offer to ${selectedCustomer.firstName} ${selectedCustomer.lastName}...`)}
+                      >
                         <Gift className="w-4 h-4 mr-2" />
                         Send Offer
                       </Button>

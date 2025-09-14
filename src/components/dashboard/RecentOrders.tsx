@@ -3,122 +3,139 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Eye, MoreVertical } from 'lucide-react'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-const recentOrders = [
+const recentCustomers = [
   {
-    id: '#ORD-001',
-    customer: 'Rajesh Kumar',
-    product: 'Samsung Galaxy S24',
-    amount: '₹45,999',
-    status: 'delivered',
-    date: '2025-09-12'
-  },
-  {
-    id: '#ORD-002',
-    customer: 'Priya Sharma',
-    product: 'iPhone 15 Pro',
-    amount: '₹89,999',
-    status: 'shipped',
-    date: '2025-09-11'
-  },
-  {
-    id: '#ORD-003',
-    customer: 'Amit Patel',
-    product: 'OnePlus 12',
-    amount: '₹54,999',
-    status: 'processing',
-    date: '2025-09-11'
-  },
-  {
-    id: '#ORD-004',
-    customer: 'Sneha Reddy',
-    product: 'Nothing Phone 2',
-    amount: '₹32,999',
-    status: 'pending',
-    date: '2025-09-10'
-  },
-  {
-    id: '#ORD-005',
-    customer: 'Vikram Singh',
-    product: 'Realme GT 3',
-    amount: '₹28,999',
-    status: 'cancelled',
-    date: '2025-09-10'
+    id: 1,
+    name: 'Mirza Seraj Baig',
+    mobile: '+91 9798191810',
+    email: 'msbaig1984@gmail.com',
+    status: 'Active',
+    orders: 0,
+    createdDate: 'Jul 27, 2025 8:55 AM'
   }
 ]
 
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case 'delivered':
-      return 'bg-green-100 text-green-800'
-    case 'shipped':
-      return 'bg-blue-100 text-blue-800'
-    case 'processing':
-      return 'bg-yellow-100 text-yellow-800'
-    case 'pending':
-      return 'bg-gray-100 text-gray-800'
-    case 'cancelled':
-      return 'bg-red-100 text-red-800'
-    default:
-      return 'bg-gray-100 text-gray-800'
-  }
-}
-
 export default function RecentOrders() {
   return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle>Recent Orders</CardTitle>
-        <Button variant="outline" size="sm">
-          View All
-        </Button>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {recentOrders.map((order) => (
-            <div key={order.id} className="flex items-center justify-between p-3 rounded-lg border">
-              <div className="space-y-1">
-                <div className="flex items-center space-x-2">
-                  <span className="font-medium text-sm">{order.id}</span>
-                  <Badge className={getStatusColor(order.status)}>
-                    {order.status}
-                  </Badge>
-                </div>
-                <p className="text-sm text-muted-foreground">{order.customer}</p>
-                <p className="text-xs text-muted-foreground">{order.product}</p>
-              </div>
-              <div className="text-right space-y-1">
-                <p className="font-semibold">{order.amount}</p>
-                <p className="text-xs text-muted-foreground">{order.date}</p>
-              </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem>
-                    <Eye className="mr-2 h-4 w-4" />
-                    View Details
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>Edit Order</DropdownMenuItem>
-                  <DropdownMenuItem className="text-red-600">
-                    Cancel Order
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+    <div className="space-y-6">
+      {/* Recent Orders Table */}
+      <Card className="shadow-sm">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-semibold">Recent Orders</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">#</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Name</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Mobile</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Amount</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Payment Method</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Order Status</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Date & Time</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colSpan={8} className="text-center py-12 text-gray-500">
+                    No data available
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-600">Rows per page:</span>
+              <select className="border border-gray-200 rounded px-2 py-1 text-sm">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+              </select>
             </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+            <div className="flex items-center space-x-2">
+              <Button variant="ghost" size="sm" disabled>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <span className="text-sm text-gray-600">-</span>
+              <Button variant="ghost" size="sm" disabled>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Recent Customers Table */}
+      <Card className="shadow-sm">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-semibold">Recent Customers</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">#</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Name</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Mobile</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Email</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Status</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Orders</th>
+                  <th className="text-left py-3 px-4 font-medium text-gray-600 text-sm">Created Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentCustomers.map((customer, index) => (
+                  <tr key={customer.id} className="border-b border-gray-50 hover:bg-gray-50">
+                    <td className="py-3 px-4 text-sm">{customer.id}.</td>
+                    <td className="py-3 px-4">
+                      <span className="text-blue-600 hover:text-blue-800 cursor-pointer text-sm font-medium">
+                        {customer.name}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{customer.mobile}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{customer.email}</td>
+                    <td className="py-3 px-4">
+                      <Badge className="bg-green-100 text-green-800 text-xs">
+                        {customer.status}
+                      </Badge>
+                    </td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{customer.orders}</td>
+                    <td className="py-3 px-4 text-sm text-gray-600">{customer.createdDate}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-600">Rows per page:</span>
+              <select className="border border-gray-200 rounded px-2 py-1 text-sm">
+                <option>10</option>
+                <option>25</option>
+                <option>50</option>
+              </select>
+            </div>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-gray-600">1-1 of 1</span>
+              <div className="flex items-center space-x-1">
+                <Button variant="ghost" size="sm" disabled>
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost" size="sm" disabled>
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   )
 }

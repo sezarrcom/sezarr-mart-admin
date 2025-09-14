@@ -320,6 +320,10 @@ export default function TransactionsPage() {
     // Export transactions data to CSV/PDF
   }
 
+  const handleReconcile = () => {
+    alert('Starting transaction reconciliation process...\n• Verifying payments\n• Checking discrepancies\n• Updating records')
+  }
+
   // Filter transactions
   const filteredTransactions = transactions.filter(transaction => {
     const matchesSearch = 
@@ -418,7 +422,7 @@ export default function TransactionsPage() {
             <Download className="mr-2 h-4 w-4" />
             Export
           </Button>
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleReconcile}>
             <RefreshCw className="mr-2 h-4 w-4" />
             Reconcile
           </Button>

@@ -885,7 +885,7 @@ export default function SuppliersPage() {
                         <Button variant="ghost" size="sm" onClick={() => handleEdit(supplier)}>
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button variant="ghost" size="sm">
+                        <Button variant="ghost" size="sm" onClick={() => alert(`Viewing documents for ${supplier.name}`)}>
                           <FileText className="h-4 w-4" />
                         </Button>
                         <Button 

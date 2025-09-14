@@ -703,15 +703,29 @@ export default function OrdersPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-2">
-                        <Button className="w-full" size="sm">
+                        <Button 
+                          className="w-full" 
+                          size="sm"
+                          onClick={() => alert("Processing order...")}
+                        >
                           <Package className="w-4 h-4 mr-2" />
                           Process Order
                         </Button>
-                        <Button variant="outline" className="w-full" size="sm">
+                        <Button 
+                          variant="outline" 
+                          className="w-full" 
+                          size="sm"
+                          onClick={() => alert("Opening shipment tracking...")}
+                        >
                           <Truck className="w-4 h-4 mr-2" />
                           Track Shipment
                         </Button>
-                        <Button variant="outline" className="w-full" size="sm">
+                        <Button 
+                          variant="outline" 
+                          className="w-full" 
+                          size="sm"
+                          onClick={() => alert("Opening customer contact options...")}
+                        >
                           <MessageSquare className="w-4 h-4 mr-2" />
                           Contact Customer
                         </Button>
@@ -796,11 +810,19 @@ export default function OrdersPage() {
                             </div>
                           </div>
                           <div className="flex space-x-2 pt-3">
-                            <Button size="sm" variant="outline">
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => alert(`Calling customer: ${customerDetails.name}`)}
+                            >
                               <Phone className="w-4 h-4 mr-2" />
                               Call
                             </Button>
-                            <Button size="sm" variant="outline">
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => alert(`Emailing customer: ${customerDetails.email}`)}
+                            >
                               <Mail className="w-4 h-4 mr-2" />
                               Email
                             </Button>

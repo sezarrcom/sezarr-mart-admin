@@ -442,11 +442,14 @@ export default function MobileAppSettingsPage() {
               <SelectItem value="ios">iOS</SelectItem>
             </SelectContent>
           </Select>
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => alert("Opening mobile app preview...")}
+          >
             <Eye className="w-4 h-4 mr-2" />
             Preview
           </Button>
-          <Button>
+          <Button onClick={() => alert("Mobile settings saved successfully!")}>
             <Save className="w-4 h-4 mr-2" />
             Save Changes
           </Button>
@@ -575,7 +578,11 @@ export default function MobileAppSettingsPage() {
                       <div className="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center">
                         <Smartphone className="w-8 h-8 text-gray-400" />
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => alert("Opening file picker for app logo...")}
+                      >
                         <Upload className="w-4 h-4 mr-2" />
                         Upload Logo
                       </Button>
@@ -587,7 +594,11 @@ export default function MobileAppSettingsPage() {
                       <div className="w-16 h-16 bg-gray-200 rounded-xl flex items-center justify-center">
                         <Circle className="w-8 h-8 text-gray-400" />
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => alert("Opening file picker for app icon...")}
+                      >
                         <Upload className="w-4 h-4 mr-2" />
                         Upload Icon
                       </Button>
@@ -599,7 +610,11 @@ export default function MobileAppSettingsPage() {
                       <div className="w-16 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
                         <Monitor className="w-8 h-8 text-gray-400" />
                       </div>
-                      <Button variant="outline" size="sm">
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => alert("Opening file picker for splash screen...")}
+                      >
                         <Upload className="w-4 h-4 mr-2" />
                         Upload Splash
                       </Button>
@@ -757,7 +772,11 @@ export default function MobileAppSettingsPage() {
                             setHomePageSections(updatedSections)
                           }}
                         />
-                        <Button size="sm" variant="ghost">
+                        <Button 
+                          size="sm" 
+                          variant="ghost"
+                          onClick={() => alert(`Configuring section: ${section.title}`)}
+                        >
                           <Settings className="w-4 h-4" />
                         </Button>
                       </div>
@@ -848,7 +867,11 @@ export default function MobileAppSettingsPage() {
                           }}
                           disabled={option.method === 'phone'} // Phone is always enabled
                         />
-                        <Button size="sm" variant="ghost">
+                        <Button 
+                          size="sm" 
+                          variant="ghost"
+                          onClick={() => alert(`Configuring signup method: ${option.method}`)}
+                        >
                           <Settings className="w-4 h-4" />
                         </Button>
                       </div>

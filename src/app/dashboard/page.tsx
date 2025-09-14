@@ -4,16 +4,43 @@ import RecentOrders from '@/components/dashboard/RecentOrders'
 import SalesChart from '@/components/dashboard/SalesChart'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Package, Plus, ShoppingCart, Users } from 'lucide-react'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Package, Plus, ShoppingCart, Users, Maximize2, RotateCcw, Monitor } from 'lucide-react'
 
 export default function DashboardPage() {
+  // Get current time for personalized greeting
+  const currentHour = new Date().getHours()
+  const greeting = currentHour < 12 ? 'Good Morning' : currentHour < 17 ? 'Good Afternoon' : 'Good Evening'
+  const userName = 'Admin User'
+  
   return (
       <div className="space-y-8">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground text-lg">
-            Welcome to Sezarr Mart Ecommerce Admin Dashboard
-          </p>
+        {/* Enhanced Header with Personalized Greeting */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-12 w-12 border-2 border-blue-200">
+                <AvatarImage src="/avatar.png" alt={userName} />
+                <AvatarFallback className="bg-blue-500 text-white font-semibold">AU</AvatarFallback>
+              </Avatar>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900">Hello, {userName}!</h1>
+                <p className="text-blue-600 font-medium">{greeting}! Have a great time!</p>
+              </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" size="sm" className="hover:bg-blue-50">
+                <Maximize2 className="h-4 w-4" />
+              </Button>
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2">
+                <Monitor className="h-4 w-4 mr-2" />
+                POS
+              </Button>
+              <Button variant="outline" size="sm" className="hover:bg-blue-50">
+                <RotateCcw className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
         
         <DashboardStats />
@@ -62,10 +89,9 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <SalesChart />
-          <RecentOrders />
-        </div>
+        <SalesChart />
+        
+        <RecentOrders />
       </div>
   )
 }

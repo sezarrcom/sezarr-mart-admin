@@ -313,7 +313,12 @@ export default function ProductsPage() {
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
                   <Upload className="mx-auto h-12 w-12 text-gray-400" />
                   <div className="mt-2">
-                    <Button type="button" variant="outline" size="sm">
+                    <Button 
+                      type="button" 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => alert("Opening file picker for product images...")}
+                    >
                       Upload Images
                     </Button>
                   </div>

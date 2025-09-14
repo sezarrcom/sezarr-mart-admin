@@ -1406,7 +1406,11 @@ export default function BannersPage() {
                         <p className="text-muted-foreground">
                           This banner is not currently running any A/B tests.
                         </p>
-                        <Button className="mt-4" variant="outline">
+                        <Button 
+                          className="mt-4" 
+                          variant="outline"
+                          onClick={() => alert("Opening A/B test configuration...")}
+                        >
                           <Settings className="mr-2 h-4 w-4" />
                           Set Up A/B Test
                         </Button>

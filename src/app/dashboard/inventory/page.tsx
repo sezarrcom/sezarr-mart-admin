@@ -234,11 +234,19 @@ export default function InventoryManagementPage() {
           <p className="text-gray-600">Track stock levels, movements, and alerts</p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => alert("Exporting inventory data...")}
+          >
             <Download className="mr-2 h-4 w-4" />
             Export Inventory
           </Button>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => alert("Syncing stock levels with suppliers...")}
+          >
             <RefreshCw className="mr-2 h-4 w-4" />
             Sync Stock
           </Button>
@@ -431,7 +439,11 @@ export default function InventoryManagementPage() {
                             >
                               <Plus className="h-4 w-4" />
                             </Button>
-                            <Button variant="ghost" size="sm">
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => alert(`Viewing transaction history for ${item.product.name}`)}
+                            >
                               <Clock className="h-4 w-4" />
                             </Button>
                           </div>
@@ -492,7 +504,11 @@ export default function InventoryManagementPage() {
                         }>
                           {alert.priority.toUpperCase()}
                         </Badge>
-                        <Button size="sm" variant="outline">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => window.alert(`Resolving alert: ${alert.type}`)}
+                        >
                           Resolve
                         </Button>
                       </div>
@@ -538,28 +554,44 @@ export default function InventoryManagementPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Button variant="outline" className="h-24">
+                <Button 
+                  variant="outline" 
+                  className="h-24"
+                  onClick={() => alert("Generating stock levels report...")}
+                >
                   <div className="text-center">
                     <BarChart3 className="mx-auto h-8 w-8 mb-2" />
                     <div className="font-medium">Stock Levels Report</div>
                     <div className="text-sm text-gray-500">Current inventory status</div>
                   </div>
                 </Button>
-                <Button variant="outline" className="h-24">
+                <Button 
+                  variant="outline" 
+                  className="h-24"
+                  onClick={() => alert("Generating movement history report...")}
+                >
                   <div className="text-center">
                     <TrendingUp className="mx-auto h-8 w-8 mb-2" />
                     <div className="font-medium">Movement History</div>
                     <div className="text-sm text-gray-500">Stock flow analysis</div>
                   </div>
                 </Button>
-                <Button variant="outline" className="h-24">
+                <Button 
+                  variant="outline" 
+                  className="h-24"
+                  onClick={() => alert("Generating low stock report...")}
+                >
                   <div className="text-center">
                     <AlertTriangle className="mx-auto h-8 w-8 mb-2" />
                     <div className="font-medium">Low Stock Report</div>
                     <div className="text-sm text-gray-500">Items needing restock</div>
                   </div>
                 </Button>
-                <Button variant="outline" className="h-24">
+                <Button 
+                  variant="outline" 
+                  className="h-24"
+                  onClick={() => alert("Generating inventory valuation report...")}
+                >
                   <div className="text-center">
                     <Package className="mx-auto h-8 w-8 mb-2" />
                     <div className="font-medium">Inventory Valuation</div>

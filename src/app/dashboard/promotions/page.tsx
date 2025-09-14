@@ -454,7 +454,10 @@ export default function PromotionsPage() {
           <p className="text-gray-600">Manage coupons, deals, referral programs, and loyalty rewards</p>
         </div>
         <div className="flex space-x-3">
-          <Button variant="outline">
+          <Button 
+            variant="outline"
+            onClick={() => alert("Exporting promotions report...")}
+          >
             <Download className="w-4 h-4 mr-2" />
             Export Report
           </Button>
@@ -616,10 +619,21 @@ export default function PromotionsPage() {
                           <Button size="sm" variant="ghost" onClick={() => setSelectedCoupon(coupon)}>
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="ghost">
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={() => alert(`Editing coupon: ${coupon.code}`)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="ghost">
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={() => {
+                              navigator.clipboard.writeText(coupon.code)
+                              alert(`Coupon code ${coupon.code} copied to clipboard!`)
+                            }}
+                          >
                             <Copy className="w-4 h-4" />
                           </Button>
                         </div>
@@ -708,10 +722,18 @@ export default function PromotionsPage() {
                           <Button size="sm" variant="ghost" onClick={() => setSelectedDeal(deal)}>
                             <Eye className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="ghost">
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={() => alert(`Editing deal: ${deal.title}`)}
+                          >
                             <Edit className="w-4 h-4" />
                           </Button>
-                          <Button size="sm" variant="ghost">
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={() => alert(`Viewing analytics for: ${deal.title}`)}
+                          >
                             <BarChart3 className="w-4 h-4" />
                           </Button>
                         </div>
