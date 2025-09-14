@@ -77,28 +77,28 @@ export default function DashboardStats() {
           
           return (
             <Card key={index} className="hover:shadow-md transition-all duration-200 border border-gray-200">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 px-3 py-2">
                 <div className="space-y-0">
-                  <CardTitle className="text-xs font-medium text-gray-600">
+                  <CardTitle className="text-xs font-medium text-gray-600 leading-tight">
                     {stat.title}
                   </CardTitle>
                   {stat.subtitle && (
-                    <p className="text-xs text-gray-400 mt-0.5">{stat.subtitle}</p>
+                    <p className="text-xs text-gray-400 leading-tight">{stat.subtitle}</p>
                   )}
                 </div>
                 <div className="flex items-center space-x-1">
                   {(stat as any).info && (
-                    <Button variant="ghost" size="sm" className="h-4 w-4 p-0" title={(stat as any).info}>
-                      <Info className="h-3 w-3 text-gray-400" />
+                    <Button variant="ghost" size="sm" className="h-3 w-3 p-0" title={(stat as any).info}>
+                      <Info className="h-2.5 w-2.5 text-gray-400" />
                     </Button>
                   )}
-                  <div className={`p-1.5 rounded ${stat.bgColor}`}>
-                    <Icon className={`h-4 w-4 ${stat.color}`} />
+                  <div className={`p-1 rounded ${stat.bgColor}`}>
+                    <Icon className={`h-3 w-3 ${stat.color}`} />
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="pt-0 pb-3">
-                <div className="text-lg font-bold text-gray-900">{stat.value}</div>
+              <CardContent className="px-3 py-1">
+                <div className="text-sm font-bold text-gray-900">{stat.value}</div>
               </CardContent>
             </Card>
           )
