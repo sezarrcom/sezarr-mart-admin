@@ -65,66 +65,40 @@ const salesStats = [
 ]
 
 export default function DashboardStats() {
+  // Combine all stats for 2x3 grid layout
+  const allStats = [...mainStats, ...salesStats]
+  
   return (
-    <div className="space-y-6">
-      {/* Main Stats - 4 Column Layout */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {mainStats.map((stat, index) => {
+    <div>
+      {/* Stats Grid - 2 rows x 3 columns */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {allStats.map((stat, index) => {
           const Icon = stat.icon
           
           return (
-            <Card key={index} className="hover:shadow-lg transition-all duration-200 border border-gray-200">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                <div className="space-y-1">
-                  <CardTitle className="text-sm font-medium text-gray-600">
+            <Card key={index} className="hover:shadow-md transition-all duration-200 border border-gray-200">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <div className="space-y-0">
+                  <CardTitle className="text-xs font-medium text-gray-600">
                     {stat.title}
                   </CardTitle>
                   {stat.subtitle && (
-                    <p className="text-xs text-gray-500">{stat.subtitle}</p>
+                    <p className="text-xs text-gray-400 mt-0.5">{stat.subtitle}</p>
                   )}
                 </div>
-                <div className="flex items-center space-x-2">
-                  <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                    <Info className="h-3 w-3 text-gray-400" />
-                  </Button>
-                  <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-                    <Icon className={`h-5 w-5 ${stat.color}`} />
+                <div className="flex items-center space-x-1">
+                  {(stat as any).info && (
+                    <Button variant="ghost" size="sm" className="h-4 w-4 p-0" title={(stat as any).info}>
+                      <Info className="h-3 w-3 text-gray-400" />
+                    </Button>
+                  )}
+                  <div className={`p-1.5 rounded ${stat.bgColor}`}>
+                    <Icon className={`h-4 w-4 ${stat.color}`} />
                   </div>
                 </div>
               </CardHeader>
-              <CardContent className="pt-0">
-                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                {stat.info && (
-                  <p className="text-xs text-gray-500 mt-1">{stat.info}</p>
-                )}
-              </CardContent>
-            </Card>
-          )
-        })}
-      </div>
-
-      {/* Additional Sales Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {salesStats.map((stat, index) => {
-          const Icon = stat.icon
-          
-          return (
-            <Card key={index} className="hover:shadow-lg transition-all duration-200 border border-gray-200">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-                <div className="space-y-1">
-                  <CardTitle className="text-sm font-medium text-gray-600">
-                    {stat.title}
-                  </CardTitle>
-                  {stat.subtitle && (
-                    <p className="text-xs text-gray-500">{stat.subtitle}</p>
-                  )}
-                </div>
-                <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-                  <Icon className={`h-5 w-5 ${stat.color}`} />
-                </div>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+              <CardContent className="pt-0 pb-3">
+                <div className="text-lg font-bold text-gray-900">{stat.value}</div>
               </CardContent>
             </Card>
           )
