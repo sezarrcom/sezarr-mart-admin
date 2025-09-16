@@ -5,7 +5,7 @@ services:
   github:
     repo: your-username/sezarr-mart
     branch: main
-  run_command: npm start
+  run_command: node .next/standalone/server.js
   build_command: npm run build
   environment_slug: node-js
   instance_count: 1
