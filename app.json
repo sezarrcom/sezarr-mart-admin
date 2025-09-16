@@ -1,0 +1,12 @@
+{
+  "name": "sezarr-mart",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run build",
+    "start": "npm start"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
